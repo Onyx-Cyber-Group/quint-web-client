@@ -36,11 +36,12 @@ npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**. Use the buttons to hit:
+Open **http://localhost:5173**. The UI includes:
 
-1. `GET /api/v1/health` — service health (may be 503 if DB checks fail; still proves connectivity).
-2. `GET /api/v1/ai/v181/status` — public JSON (QNT-181 capability surface).
-3. Paste a **Matrix access token** and call `GET /_matrix/client/r0/account/whoami` — proves Bearer auth end-to-end.
+1. **Overview** — quick `GET` checks for `/api/v1/health`, `/api/v1/ai/v181/status`, and Matrix `whoami` with a pasted access token.
+2. **Swagger UI** — embedded **interactive OpenAPI** from the Quint server at `/api/docs/` (same as `https://100.25.66.46/api/docs/` when the server has `flask-swagger-ui` installed). Raw spec: `/api/openapi.json`.
+
+If Swagger does not load in the iframe (e.g. `X-Frame-Options`), use **Open in new tab** on that screen.
 
 ## Getting a Matrix access token (password flow)
 

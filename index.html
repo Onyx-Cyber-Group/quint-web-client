@@ -3,42 +3,152 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quint Web Client</title>
+    <title>Quint Web Client — API console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <main class="wrap">
-      <h1>Quint / Splash MMP — web client</h1>
-      <p class="lead">
-        Minimal page for <code>npm run dev</code>. Proxies <code>/api</code> and
-        <code>/_matrix</code> to the homeserver (see <code>README.md</code>).
-      </p>
+    <div class="app">
+      <header class="topbar">
+        <div class="topbar__brand">
+          <span class="logo" aria-hidden="true">◆</span>
+          <div>
+            <div class="topbar__title">Quint Splash API</div>
+            <div class="topbar__subtitle">Web console · proxied dev</div>
+          </div>
+        </div>
+        <div class="topbar__meta">
+          <span class="pill pill--live">local</span>
+          <code class="topbar__host">/api → 100.25.66.46</code>
+        </div>
+      </header>
 
-      <section class="card">
-        <h2>1. Public health</h2>
-        <button type="button" id="btn-health">GET /api/v1/health</button>
-        <pre id="out-health" class="out" aria-live="polite"></pre>
-      </section>
+      <nav class="tabs" role="tablist" aria-label="Main">
+        <button
+          type="button"
+          class="tabs__btn tabs__btn--active"
+          role="tab"
+          aria-selected="true"
+          data-tab="overview"
+          id="tab-overview"
+        >
+          Overview
+        </button>
+        <button
+          type="button"
+          class="tabs__btn"
+          role="tab"
+          aria-selected="false"
+          data-tab="swagger"
+          id="tab-swagger"
+        >
+          Swagger UI
+        </button>
+      </nav>
 
-      <section class="card">
-        <h2>2. Public AI status</h2>
-        <button type="button" id="btn-ai">GET /api/v1/ai/v181/status</button>
-        <pre id="out-ai" class="out" aria-live="polite"></pre>
-      </section>
+      <main class="main">
+        <!-- Overview -->
+        <section
+          class="panel panel--overview"
+          data-panel="overview"
+          role="tabpanel"
+          aria-labelledby="tab-overview"
+        >
+          <p class="intro">
+            Quick checks against the same backend as Splash MMP. For full interactive
+            documentation, open <strong>Swagger UI</strong>.
+          </p>
 
-      <section class="card">
-        <h2>3. Matrix token check</h2>
-        <label for="token">Matrix access token (paste only in dev; never commit)</label>
-        <textarea
-          id="token"
-          rows="3"
-          placeholder="syt_... or other Matrix access_token from login"
-          autocomplete="off"
-        ></textarea>
-        <button type="button" id="btn-whoami">GET /_matrix/client/r0/account/whoami</button>
-        <pre id="out-whoami" class="out" aria-live="polite"></pre>
-      </section>
-    </main>
+          <div class="grid">
+            <article class="endpoint-card">
+              <div class="endpoint-card__head">
+                <span class="method method--get">GET</span>
+                <code>/api/v1/health</code>
+              </div>
+              <p class="endpoint-card__desc">Service and database health.</p>
+              <button type="button" class="btn btn--primary" id="btn-health">Run request</button>
+              <pre id="out-health" class="response" aria-live="polite"></pre>
+            </article>
+
+            <article class="endpoint-card">
+              <div class="endpoint-card__head">
+                <span class="method method--get">GET</span>
+                <code>/api/v1/ai/v181/status</code>
+              </div>
+              <p class="endpoint-card__desc">Public AI capability discovery (QNT-181).</p>
+              <button type="button" class="btn btn--primary" id="btn-ai">Run request</button>
+              <pre id="out-ai" class="response" aria-live="polite"></pre>
+            </article>
+
+            <article class="endpoint-card endpoint-card--wide">
+              <div class="endpoint-card__head">
+                <span class="method method--get">GET</span>
+                <code>/_matrix/client/r0/account/whoami</code>
+              </div>
+              <p class="endpoint-card__desc">
+                Validates a <strong>Matrix access token</strong> (Bearer). Paste token for local dev only.
+              </p>
+              <label class="field-label" for="token">Authorization: Bearer …</label>
+              <textarea
+                id="token"
+                class="field-input"
+                rows="2"
+                placeholder="access_token from Matrix login"
+                autocomplete="off"
+                spellcheck="false"
+              ></textarea>
+              <button type="button" class="btn btn--primary" id="btn-whoami">Run request</button>
+              <pre id="out-whoami" class="response" aria-live="polite"></pre>
+            </article>
+
+            <article class="endpoint-card endpoint-card--links">
+              <h3 class="links-title">OpenAPI</h3>
+              <ul class="link-list">
+                <li>
+                  <a href="/api/openapi.json" target="_blank" rel="noopener">Raw OpenAPI JSON</a>
+                </li>
+                <li>
+                  <a href="/api/docs/" target="_blank" rel="noopener">Swagger UI (new tab)</a>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- Swagger -->
+        <section
+          class="panel panel--swagger"
+          data-panel="swagger"
+          role="tabpanel"
+          aria-labelledby="tab-swagger"
+          hidden
+        >
+          <div class="swagger-toolbar">
+            <p>
+              Embedded <strong>Swagger UI</strong> from the Quint server
+              (<code>/api/docs/</code>). “Try it out” uses the server URL from the OpenAPI spec.
+            </p>
+            <a class="btn btn--ghost" href="/api/docs/" target="_blank" rel="noopener">Open in new tab</a>
+          </div>
+          <div class="swagger-frame-wrap">
+            <p id="swagger-placeholder" class="swagger-placeholder">
+              Loading Swagger UI…
+            </p>
+            <iframe
+              id="swagger-iframe"
+              class="swagger-iframe"
+              title="Quint Splash API — Swagger UI"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            ></iframe>
+          </div>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

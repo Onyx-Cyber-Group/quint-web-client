@@ -41,3 +41,39 @@ document.getElementById("btn-whoami").addEventListener("click", async () => {
     out.textContent = String(e);
   }
 });
+
+/** Tabs: Overview vs embedded Swagger UI */
+function setupTabs() {
+  const tabs = document.querySelectorAll(".tabs__btn[data-tab]");
+  const panels = document.querySelectorAll("[data-panel]");
+  const iframe = document.getElementById("swagger-iframe");
+  const placeholder = document.getElementById("swagger-placeholder");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const id = tab.dataset.tab;
+
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle("tabs__btn--active", active);
+        t.setAttribute("aria-selected", active ? "true" : "false");
+      });
+
+      panels.forEach((p) => {
+        p.hidden = p.dataset.panel !== id;
+      });
+
+      if (id === "swagger" && iframe && !iframe.getAttribute("src")) {
+        iframe.style.display = "block";
+        iframe.src = "/api/docs/";
+        const hidePh = () => {
+          if (placeholder) placeholder.hidden = true;
+        };
+        iframe.addEventListener("load", hidePh, { once: true });
+        iframe.addEventListener("error", hidePh, { once: true });
+      }
+    });
+  });
+}
+
+setupTabs();
