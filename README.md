@@ -74,7 +74,7 @@ Output is in `dist/`. Configure your host so `/api` and `/_matrix` route to the 
 
 ## Team
 
-- **Web / front-end:** **Ryan Cordon** — primary contact for this client. Once you have his **GitHub username**, an org owner should invite that account as a **collaborator** on this repo (Repository **Settings → Collaborators and teams**) or add him to the right **Onyx-Cyber-Group** team with write access.
+- **Web / front-end:** [@rcordon](https://github.com/rcordon) — primary contact for this client. Org owners can grant access via **Settings → Collaborators and teams** on this repo (or the appropriate Onyx-Cyber-Group team).
 
 ## License
 
