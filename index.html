@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quint Web Client</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Quint / Splash MMP — web client</h1>
+      <p class="lead">
+        Minimal page for <code>npm run dev</code>. Proxies <code>/api</code> and
+        <code>/_matrix</code> to the homeserver (see <code>README.md</code>).
+      </p>
+
+      <section class="card">
+        <h2>1. Public health</h2>
+        <button type="button" id="btn-health">GET /api/v1/health</button>
+        <pre id="out-health" class="out" aria-live="polite"></pre>
+      </section>
+
+      <section class="card">
+        <h2>2. Public AI status</h2>
+        <button type="button" id="btn-ai">GET /api/v1/ai/v181/status</button>
+        <pre id="out-ai" class="out" aria-live="polite"></pre>
+      </section>
+
+      <section class="card">
+        <h2>3. Matrix token check</h2>
+        <label for="token">Matrix access token (paste only in dev; never commit)</label>
+        <textarea
+          id="token"
+          rows="3"
+          placeholder="syt_... or other Matrix access_token from login"
+          autocomplete="off"
+        ></textarea>
+        <button type="button" id="btn-whoami">GET /_matrix/client/r0/account/whoami</button>
+        <pre id="out-whoami" class="out" aria-live="polite"></pre>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
