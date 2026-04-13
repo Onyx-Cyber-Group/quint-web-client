@@ -72,6 +72,10 @@ Output is in `dist/`. Configure your host so `/api` and `/_matrix` route to the 
 - **iOS client:** `QUINT001` (`APIConfiguration.swift` for base URLs).
 - **OpenAPI:** when enabled on the server, `https://100.25.66.46/api/docs/` (see `api/app.py`).
 
+## Team
+
+- **Web / front-end:** **Ryan Cordon** — primary contact for this client. Once you have his **GitHub username**, an org owner should invite that account as a **collaborator** on this repo (Repository **Settings → Collaborators and teams**) or add him to the right **Onyx-Cyber-Group** team with write access.
+
 ## License
 
 Internal ONYX / Onyx Cyber use unless otherwise agreed.
