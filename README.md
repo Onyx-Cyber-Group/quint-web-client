@@ -2,6 +2,8 @@
 
 Minimal **Vite + vanilla JS** web client for the ONYX **Quint Splash API** and **Synapse** homeserver (`https://100.25.66.46`).
 
+**Onboarding (Matrix token, registration vs admin, env):** see [docs/DEVELOPER_ONBOARDING.md](docs/DEVELOPER_ONBOARDING.md).
+
 ## Do developers need to be logged into AWS?
 
 **No.** This app never calls the AWS API. It only speaks **HTTPS** to the Quint homeserver (`100.25.66.46`). That server already runs on EC2; it does not care whether anyone has the **AWS Console** or **AWS CLI** open. You only need **network reachability** to that host (and, for some networks, VPN or firewall rules your org allows). Operations still use AWS for **hosting** the box—that is separate from day-to-day frontend work.
